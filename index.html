@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Polar Bear 🐻‍❄️</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+overflow:hidden;
+background:#0a0a0a;
+color:white;
+}
+
+::-webkit-scrollbar{
+display:none;
+}
+
+.page{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+transition:1.2s cubic-bezier(0.4, 0, 0.2, 1);
+background-size:cover;
+background-position:center;
+}
+
+.hidden{
+opacity:0;
+pointer-events:none;
+transform:scale(1.1) rotateX(5deg);
+}
+
+.overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.7));
+backdrop-filter:blur(3px);
+}
+
+.content{
+position:relative;
+z-index:2;
+max-width:750px;
+animation:fadeIn 1.8s ease;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.emoji{
+font-size:80px;
+margin-bottom:20px;
+animation:bounce 2s infinite;
+display:inline-block;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+}
+
+h1{
+font-size:48px;
+font-family:'Dancing Script', cursive;
+margin-bottom:25px;
+text-shadow:0 0 30px rgba(255,255,255,0.4);
+letter-spacing:2px;
+}
+
+.message{
+font-size:22px;
+line-height:1.9;
+margin-bottom:30px;
+color:rgba(255,255,255,0.95);
+}
+
+.btn{
+padding:18px 40px;
+border:2px solid rgba(255,255,255,0.3);
+border-radius:50px;
+font-size:17px;
+margin:8px;
+cursor:pointer;
+background:rgba(255,255,255,0.1);
+color:white;
+backdrop-filter:blur(10px);
+transition:0.4s;
+letter-spacing:1px;
+}
+
+.btn:hover{
+transform:scale(1.08);
+background:white;
+color:#1a1a1a;
+box-shadow:0 0 30px rgba(255,255,255,0.5);
+}
+
+.typing-text{
+overflow:hidden;
+white-space:nowrap;
+border-right:3px solid white;
+width:0;
+animation:typing 3.5s steps(45,end) forwards, blink 0.8s infinite;
+margin:0 auto;
+}
+
+@keyframes typing{
+from{width:0}
+to{width:100%}
+}
+
+@keyframes blink{
+50%{border-color:transparent}
+}
+
+.car-img{
+width:280px;
+border-radius:20px;
+margin:15px;
+box-shadow:0 10px 40px rgba(0,0,0,0.5);
+transition:0.4s;
+}
+
+.car-img:hover{
+transform:scale(1.05);
+}
+
+.driving-text{
+font-size:24px;
+line-height:1.8;
+color:#ffd700;
+}
+
+.final-msg{
+font-size:26px;
+line-height:2.2;
+color:#ffb6c1;
+text-shadow:0 0 25px rgba(255,182,193,0.5);
+}
+
+.small-text{
+font-size:16px;
+opacity:0.75;
+margin-top:25px;
+}
+
+.hearts-container{
+position:fixed;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:1;
+pointer-events:none;
+}
+
+.floating-heart{
+position:absolute;
+font-size:20px;
+animation:floatUp linear infinite;
+opacity:0;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(100vh) scale(0.5);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-15vh) scale(1.2);opacity:0;}
+}
+
+.lily-img{
+width:180px;
+border-radius:15px;
+margin:10px;
+box-shadow:0 8px 25px rgba(255,255,255,0.2);
+}
+
+.drive-badge{
+background:linear-gradient(135deg, #ffd700, #ff8c00);
+color:#1a1a1a;
+padding:8px 20px;
+border-radius:20px;
+font-size:14px;
+font-weight:bold;
+display:inline-block;
+margin-bottom:15px;
+}
+
+.road-anim{
+position:absolute;
+bottom:0;
+width:100%;
+height:200px;
+background:linear-gradient(to top, rgba(30,30,30,0.9), transparent);
+}
+
+.road-line{
+position:absolute;
+bottom:50px;
+width:100%;
+height:4px;
+background:repeating-linear-gradient(90deg, white 0, white 30px, transparent 30px, transparent 60px);
+animation:roadMove 1s linear infinite;
+}
+
+@keyframes roadMove{
+from{background-position:0 0;}
+to{background-position:60px 0;}
+}
+
+@media(max-width:768px){
+h1{font-size:34px;}
+.message{font-size:18px;}
+.emoji{font-size:60px;}
+.car-img{width:200px;}
+.lily-img{width:140px;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="song.mp3" type="audio/mp3">
+</audio>
+
+<div class="hearts-container" id="heartsContainer"></div>
+
+<!-- PAGE 1: Intro -->
+<section class="page" id="page1" style="background-image:url('https://images.unsplash.com/photo-1532704806466-5c7d8b73611d?q=80&w=1974&auto=format&fit=crop');">
+<div class="overlay"></div>
+<div class="content">
+<span class="emoji">🐻‍❄️</span>
+<h1>Hey Polar Bear...</h1>
+<p class="typing-text">I noticed something's missing today 🥺</p>
+<br><br>
+<button class="btn" onclick="startExperience()">YEAH 🥺</button>
+<button class="btn" onclick="startExperience()">MAYBE 💭</button>
+</div>
+</section>
+
+<!-- PAGE 2: Lily Flowers -->
+<section class="page hidden" id="page2" style="background-image:url('https://images.unsplash.com/photo-1518529574275-b5524139c59e?q=80&w=1974&auto=format&fit=crop');">
+<div class="overlay"></div>
+<div class="content">
+<span class="emoji">🌸</span>
+<h1>Like A Lily 🌸</h1>
+<p class="message">You are as pure as a lily<br>as beautiful as a lotus<br>as special as the first bloom of spring ✨</p>
+<img class="lily-img" src="https://images.unsplash.com/photo-1522764724726-8c742aac27e6?q=80&w=600&auto=format&fit=crop">
+<img class="lily-img" src="https://images.unsplash.com/photo-1462275646964-a0e3386b89fa?q=80&w=600&auto=format&fit=crop">
+<br><br>
+<button class="btn" onclick="nextPage(2,3)">I LOVE IT 💖</button>
+</div>
+</section>
+
+<!-- PAGE 3: Drive (MOST IMPORTANT) -->
+<section class="page hidden" id="page3" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1974&auto=format&fit=crop');">
+<div class="overlay"></div>
+<div class="content">
+<span class="emoji">🚗</span>
+<div class="drive-badge">⭐ BEST CRETA DRIVER ⭐</div>
+<h1>Your Creta Is Waiting 🌙</h1>
+<p class="driving-text">
+The night is calling...<br>
+The road is ready...<br>
+And you drive so good baby 🚗💫
+</p>
+<img class="car-img" src="https://images.unsplash.com/photo-1590362891991-f776e747a588?q=80&w=800&auto=format&fit=crop">
+<br><br>
+<button class="btn" onclick="nextPage(3,4)">LET'S DRIVE 🌙</button>
+<button class="btn" onclick="nextPage(3,4)">YOU DRIVE 💪</button>
+</div>
+</section>
+
+<!-- PAGE 4: Comfort -->
+<section class="page hidden" id="page4" style="background-image:url('https://images.unsplash.com/photo-1484723091739-30a097e8f927?q=80&w=1950&auto=format&fit=crop');">
+<div class="overlay"></div>
+<div class="content">
+<span class="emoji">🧋</span>
+<h1>Comfort Mode? 🥺</h1>
+<p class="message">What does my polar bear want?</p>
+<button class="btn" onclick="nextPage(4,5)">🧋 BUBBLE TEA</button>
+<button class="btn" onclick="nextPage(4,5)">🍜 NOODLES</button>
+<button class="btn" onclick="nextPage(4,5)">🍫 CHOCOLATE</button>
+</div>
+</section>
+
+<!-- PAGE 5: Final -->
+<section class="page hidden" id="page5" style="background-image:url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=1974&auto=format&fit=crop');">
+<div class="overlay"></div>
+<div class="content">
+<span class="emoji">🧸</span>
+<h1>One Last Thing...</h1>
+<p class="final-msg">
+Call me.<br>
+Not because I'm bored...<br><br>
+Because my world is incomplete<br>
+Without your voice ❤️
+</p>
+<button class="btn" onclick="window.location.href='tel:+918288931872'">
+📞 CALL NOW
+</button>
+<p class="small-text">
+Your passenger seat is always reserved 🚗💕
+</p>
+</div>
+</section>
+
+<script>
+
+function startExperience(){
+document.getElementById('music').play();
+nextPage(1,2);
+}
+
+function nextPage(current, next){
+document.getElementById('page'+current).classList.add('hidden');
+document.getElementById('page'+next).classList.remove('hidden');
+}
+
+// Floating hearts & sparkles
+const container = document.getElementById('heartsContainer');
+const emojis = ['❤️', '💕', '💖', '✨', '🌸', '🐻‍❄️'];
+
+for(let i = 0; i < 35; i++){
+let heart = document.createElement('div');
+heart.className = 'floating-heart';
+heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+heart.style.left = Math.random() * 100 + 'vw';
+heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
+heart.style.animationDelay = (Math.random() * 5) + 's';
+heart.style.fontSize = (Math.random() * 18 + 12) + 'px';
+container.appendChild(heart);
+}
+
+</script>
+
+</body>
+</html>
